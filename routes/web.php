@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/usuarios','UsuariosController@index');
+Route::post('/usuarios','UsuariosController@store');
+Route::patch('/usuarios/{usuario}','UsuariosController@update');
+Route::get('/usuarios/cadastro','UsuariosController@create');
+Route::get('/usuarios/{usuario}/edit','UsuariosController@edit');
