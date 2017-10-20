@@ -32,7 +32,7 @@
                                     <a href="{{ url("/usuarios/{$usuario->id}") }}">{{ $usuario->nome }}</a>
                                 </td>
                                 <td>
-                                    <form action="{{ url("/usuarios/{$usuario->id}") }}" method="POST" class="form-horizontal">
+                                    <form action="{{ url("/usuarios/{$usuario->id}") }}" method="POST" class="form-horizontal has-icons">
                                         {!! method_field("DELETE") !!}
                                         {!! csrf_field() !!}
                                         <button type="submit" class="btn btn-danger remover">
