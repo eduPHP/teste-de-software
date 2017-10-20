@@ -19,5 +19,6 @@ Route::get('/', function () {
 Route::get('/usuarios','UsuariosController@index');
 Route::post('/usuarios','UsuariosController@store');
 Route::patch('/usuarios/{usuario}','UsuariosController@update');
+Route::delete('/usuarios/{usuario}','UsuariosController@destroy');
 Route::get('/usuarios/cadastro','UsuariosController@create');
 Route::get('/usuarios/{usuario}/edit','UsuariosController@edit');

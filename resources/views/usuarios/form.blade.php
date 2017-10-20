@@ -28,7 +28,7 @@
     <label for="permissoes" class="col-sm-2 control-label">Permissoes</label>
     <div class="col-sm-10{{ $errors->has('permissoes') ? ' has-error' : '' }}">
         <select class="form-control" id="permissoes" name="permissoes">
-            @foreach(['usuario','administrador'] as $key => $val)
+            @foreach(['usuario'=>'Usuário','administrador'=>'Administrador'] as $key => $val)
                 <option value="{{$key}}"{!!
                 old('permissoes',  isset($usuario) ? $usuario->permissoes : null) == $key?
                 ' selected' : ''

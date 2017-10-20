@@ -56,18 +56,34 @@ class ManterUsuariosTest extends TestCase
     }
 
     /** @test */
+    function remocao_de_usuarios()
+    {
+        $this->withoutExceptionHandling();
+        //sendo que temos um usuario
+        $usuario = factory('App\User')->create();
+
+        //quando enviamos delete na url
+        $resposta = $this->delete("/usuarios/{$usuario->id}");
+
+        //então deve estar ausente do banco
+        $resposta->assertStatus(302);
+        $resposta->assertRedirect('/usuarios')->assertSessionHas('sucesso');
+        $this->assertDatabaseMissing('usuarios', ['id' => $usuario->id]);
+    }
+
+    /** @test */
     function listagem_de_usuarios()
     {
         $this->withoutExceptionHandling();
         //sendo que temos alguns usuarios
-        $usuarios = factory('App\User',3)->create();
+        $usuarios = factory('App\User', 3)->create();
 
         //quando acessamos a lista
         $resposta = $this->get('/usuarios');
 
         //então devemos ter os nomes dos usuarios na tela
         $resposta->assertStatus(200);
-        foreach ($usuarios as $usuario){
+        foreach ($usuarios as $usuario) {
             $resposta->assertSee($usuario->nome);
         }
     }

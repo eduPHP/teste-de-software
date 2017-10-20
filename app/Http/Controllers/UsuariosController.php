@@ -51,4 +51,11 @@ class UsuariosController extends Controller
 
         return view('usuarios.index',compact('usuarios'));
     }
+
+    public function destroy(User $usuario)
+    {
+        $usuario->delete();
+
+        return redirect('/usuarios')->with('sucesso','Usuario removido');
+    }
 }

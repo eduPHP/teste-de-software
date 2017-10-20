@@ -16,10 +16,10 @@ class BloquearAssociadoTest extends TestCase
         //sendo que temos um associado com desligado = false
         $naoDesligado = factory('App\Associado')->create(['bloqueado' => false]);
 
-        //quando executamos o metod desligar no model Associado
+        //quando executamos o metod bloquear no model Associado
         $naoDesligado->bloquear();
 
-        //então devemos ter desligado = true no banco de dados
+        //então devemos ter bloqueado = true no banco de dados
         $this->assertDatabaseHas('associados', [
             'id' => $naoDesligado->id,
             'bloqueado' => true,
@@ -32,10 +32,10 @@ class BloquearAssociadoTest extends TestCase
         //sendo que temos um associado com desligado = false
         $desligado = factory('App\Associado')->create(['bloqueado' => true]);
 
-        //quando executamos o metod religar no model Associado
+        //quando executamos o metod desbloquear no model Associado
         $desligado->desbloquear();
 
-        //então devemos ter desligado = false no banco de dados
+        //então devemos ter bloqueado = false no banco de dados
         $this->assertDatabaseHas('associados', [
             'id' => $desligado->id,
             'bloqueado' => false,

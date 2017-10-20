@@ -13,7 +13,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Usuarios</div>
                 <div class="panel-body">
-                    <a href="{{ url('/usuarios/create') }}" class="btn btn-info">Adicionar</a>
+                    <a href="{{ url('/usuarios/cadastro') }}" class="btn btn-info">Adicionar</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table crud">
