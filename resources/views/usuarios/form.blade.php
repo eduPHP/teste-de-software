@@ -50,7 +50,7 @@
 
 <!-- Input Password_confirmation -->
 <div class="form-group">
-    <label for="password_confirmation" class="col-sm-2 control-label">Password_confirmation</label>
+    <label for="password_confirmation" class="col-sm-2 control-label">Confirme a Senha</label>
     <div class="col-sm-10{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
         <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
         {!! $errors->first('password_confirmation', '<span class="label label-danger">:message</span>') !!}

@@ -22,7 +22,7 @@ class UsuariosController extends Controller
         ]);
         User::create($dados);
 
-        return redirect('/usuarios')->with('sucesso', 'Usuario cadastrado.');
+        return redirect('/usuarios')->with('sucesso', 'Usuário cadastrado.');
     }
 
 
@@ -42,7 +42,7 @@ class UsuariosController extends Controller
 
         $usuario->update($dados);
 
-        return redirect('/usuarios')->with('sucesso','Usuario modificado');
+        return redirect('/usuarios')->with('sucesso','Usuário modificado');
     }
 
     public function index()
@@ -56,6 +56,6 @@ class UsuariosController extends Controller
     {
         $usuario->delete();
 
-        return redirect('/usuarios')->with('sucesso','Usuario removido');
+        return redirect('/usuarios')->with('sucesso','Usuário removido');
     }
 }

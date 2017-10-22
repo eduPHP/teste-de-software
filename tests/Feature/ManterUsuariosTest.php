@@ -16,6 +16,7 @@ class ManterUsuariosTest extends TestCase
 
         //sendo que temos um administrador logado
         $this->login(factory('App\User')->states('administrador')->create());
+
         //quando enviamos os dados para criacao de usuario
         $resposta = $this->post('/usuarios', $dados = [
             'nome' => 'John Doe',
