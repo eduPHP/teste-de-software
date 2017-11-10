@@ -21,7 +21,7 @@
                         <tr>
                             <th class="col-md-1">#</th>
                             <th>Nome</th>
-                            <th class="col-md-1">Ação</th>
+                            <th class="col-xs-1">Ação</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -29,13 +29,14 @@
                             <tr>
                                 <td>{{ $usuario->id }}</td>
                                 <td>
-                                    <a href="{{ url("/usuarios/{$usuario->id}") }}">{{ $usuario->nome }}</a>
+{{--                                    <a href="{{ url("/usuarios/{$usuario->id}") }}">{{ $usuario->nome }}</a>--}}
+                                    {{ $usuario->nome }}
                                 </td>
                                 <td>
-                                    <form action="{{ url("/usuarios/{$usuario->id}") }}" method="POST" class="form-horizontal has-icons">
+                                    <form action="{{ url("/usuarios/{$usuario->id}") }}" method="POST" class="form-horizontal has-icons remover">
                                         {!! method_field("DELETE") !!}
                                         {!! csrf_field() !!}
-                                        <button type="submit" class="btn btn-danger remover">
+                                        <button type="submit" class="btn btn-danger">
                                             <i class="fa fa-trash"></i>
                                         </button>
 
@@ -60,3 +61,12 @@
         </div>
     </div>
 @endsection
+
+@section('scripts')
+    @parent
+    <script>
+        $(document).on('submit','.remover',function (e) {
+            return confirm('Excluir usuário?');
+        });
+    </script>
+@stop

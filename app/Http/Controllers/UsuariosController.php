@@ -16,7 +16,7 @@ class UsuariosController extends Controller
     {
         $dados = $request->validate([
             'nome' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:usuarios',
             'password' => 'required|confirmed',
             'permissoes' => 'required|in:usuario,administrador',
         ]);
@@ -35,27 +35,27 @@ class UsuariosController extends Controller
     {
         $dados = $request->validate([
             'nome' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:usuarios,email,' . $usuario->id,
             'password' => 'required|confirmed',
             'permissoes' => 'required|in:usuario,administrador',
         ]);
 
         $usuario->update($dados);
 
-        return redirect('/usuarios')->with('sucesso','Usuário modificado');
+        return redirect('/usuarios')->with('sucesso', 'Usuário modificado');
     }
 
     public function index()
     {
         $usuarios = User::paginate();
 
-        return view('usuarios.index',compact('usuarios'));
+        return view('usuarios.index', compact('usuarios'));
     }
 
     public function destroy(User $usuario)
     {
         $usuario->delete();
 
-        return redirect('/usuarios')->with('sucesso','Usuário removido');
+        return redirect('/usuarios')->with('sucesso', 'Usuário removido');
     }
 }
