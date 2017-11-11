@@ -36,9 +36,13 @@ class UsuariosController extends Controller
         $dados = $request->validate([
             'nome' => 'required',
             'email' => 'required|email|unique:usuarios,email,' . $usuario->id,
-            'password' => 'required|confirmed',
+            'password' => 'nullable|confirmed',
             'permissoes' => 'required|in:usuario,administrador',
         ]);
+
+        if (!$dados['password']){
+            unset($dados['password']);
+        }
 
         $usuario->update($dados);
 

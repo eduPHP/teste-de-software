@@ -59,7 +59,6 @@ class ManterUsuariosTest extends TestCase
     /** @test */
     function remocao_de_usuarios()
     {
-        $this->withoutExceptionHandling();
         //sendo que temos um usuario
         $usuario = factory('App\User')->create();
 
@@ -75,7 +74,6 @@ class ManterUsuariosTest extends TestCase
     /** @test */
     function listagem_de_usuarios()
     {
-        $this->withoutExceptionHandling();
         //sendo que temos alguns usuarios
         $usuarios = factory('App\User', 3)->create();
 
@@ -85,8 +83,28 @@ class ManterUsuariosTest extends TestCase
         //então devemos ter os nomes dos usuarios na tela
         $resposta->assertStatus(200);
         foreach ($usuarios as $usuario) {
-            $resposta->assertSee($usuario->nome);
+            $resposta->assertSee(e($usuario->nome));
         }
+    }
+
+    /** @test */
+    function ao_alterar_um_usuario_podemos_deixar_a_senha_em_branco_para_manter_a_mesma_ja_cadastrada()
+    {
+        //sendo que temos um usuario cadastrado
+        $usuario = factory('App\User')->create();
+        $dados = $usuario->toArray();
+        $dados['email'] = 'john@example.com';
+        $dados['password'] = null;
+
+        //quando alteramos enviando nome, email e permissoes
+        $resposta = $this->patch("/usuarios/{$usuario->id}", $dados);
+
+        //então não devemos ter erro de senha
+        $resposta->assertSessionMissing('errors');
+        $this->assertDatabaseHas('usuarios', [
+            'id' => $usuario->id,
+            'email' => 'john@example.com',
+        ]);
     }
 
 }

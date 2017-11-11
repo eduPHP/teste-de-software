@@ -17,6 +17,12 @@
         .has-icons{
             display : flex;
         }
+        .mb-1{
+            margin-bottom: 1em;
+        }
+        .mr-1{
+            margin-right: 1em;
+        }
     </style>
 </head>
 <body>
@@ -46,7 +52,12 @@
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
-
+                    <li>
+                        <form action="{{ url("/logout")}}" method="POST" class="logout-form hidden">
+                            {!! csrf_field() !!}
+                        </form>
+                        <a href="/" class="logout">Sair <i class="fa fa-exit"></i> </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -68,6 +79,12 @@
 <!-- Scripts -->
 @section('scripts')
     <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        $(document).on('click','.logout',function (e){
+            e.preventDefault();
+            $('.logout-form').submit();
+        })
+    </script>
 @show
 </body>
 </html>

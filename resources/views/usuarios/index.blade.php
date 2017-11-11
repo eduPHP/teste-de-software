@@ -36,13 +36,12 @@
                                     <form action="{{ url("/usuarios/{$usuario->id}") }}" method="POST" class="form-horizontal has-icons remover">
                                         {!! method_field("DELETE") !!}
                                         {!! csrf_field() !!}
+                                        <a href="{{ url("/usuarios/{$usuario->id}/edit") }}" class="btn btn-info mr-1">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
                                         <button type="submit" class="btn btn-danger">
                                             <i class="fa fa-trash"></i>
                                         </button>
-
-                                        <a href="{{ url("/usuarios/{$usuario->id}/edit") }}" class="btn btn-info">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
                                     </form>
                                 </td>
                             </tr>

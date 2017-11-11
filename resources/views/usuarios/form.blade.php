@@ -40,11 +40,14 @@
 </div>
 
 <!-- Input Password -->
-<div class="form-group">
+    <div class="form-group">
     <label for="password" class="col-sm-2 control-label">Senha</label>
     <div class="col-sm-10{{ $errors->has('password') ? ' has-error' : '' }}">
         <input type="password" class="form-control" id="password" name="password">
         {!! $errors->first('password', '<span class="label label-danger">:message</span>') !!}
+        @if(isset($usuario))
+            <span class="label label-warning">Deixe a senha em branco se não quiser mudá-la.</span>
+        @endif
     </div>
 </div>
 
