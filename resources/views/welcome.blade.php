@@ -9,6 +9,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
         <!-- Styles -->
         <style>
@@ -26,7 +27,7 @@
             }
 
             .flex-center {
-                align-items: center;
+                /*align-items: center;*/
                 display: flex;
                 justify-content: center;
             }
@@ -72,7 +73,13 @@
                 <div class="title m-b-md">
                     Ace
                 </div>
-
+                @if(session('status'))
+                    <div class="row">
+                        <div class="alert alert-success">
+                            {{session('status')}}
+                        </div>
+                    </div>
+                @endif
                 <div class="links">
                     <a href="/usuarios">Usuários</a>
                 </div>

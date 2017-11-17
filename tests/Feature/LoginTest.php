@@ -2,6 +2,9 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -44,9 +47,23 @@ class LoginTest extends TestCase
     /** @test */
     function um_usuario_pode_solicitar_um_email_de_recuperacao_de_senha()
     {
-        // TODO
-        //sendo que temos uma conta que não sabemos a senha
-        //quando acessamos /password/reset e solicitamos email de recuperação
-        //então um email deve ter sido enviado, e teremos um token armazenado
+        $usuario = factory('App\User')->create([
+            'password' => bcrypt(str_random()),
+        ]);
+
+        Notification::fake();
+
+        $this->get('/password/reset')->assertStatus(200);
+
+        $this->post('/password/email', [
+            'email' => $usuario->email,
+        ])->assertStatus(302)
+            ->assertSessionHas('status');
+
+        Notification::assertSentTo(
+            [$usuario], ResetPassword::class
+        );
+
+
     }
 }
