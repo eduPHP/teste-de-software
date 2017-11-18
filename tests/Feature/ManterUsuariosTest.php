@@ -12,10 +12,10 @@ class ManterUsuariosTest extends TestCase
     /** @test */
     function um_administrador_pode_criar_um_novo_usuario()
     {
-        $this->get('/usuarios/cadastro')->assertStatus(200)->assertSee('Cadastro de usuário');
-
         //sendo que temos um administrador logado
         $this->login(factory('App\User')->states('administrador')->create());
+
+        $this->get('/usuarios/cadastro')->assertStatus(200)->assertSee('Cadastro de usuário');
 
         //quando enviamos os dados para criacao de usuario
         $resposta = $this->post('/usuarios', $dados = [
@@ -34,6 +34,7 @@ class ManterUsuariosTest extends TestCase
     /** @test */
     function um_administrador_pode_editar_um_usuario()
     {
+        $this->login(factory('App\User')->states('administrador')->create());
         //sendo que temos um usuario cadastrado
         $existente = factory('App\User')->create();
         $this->get("/usuarios/{$existente->id}/edit")
@@ -90,6 +91,7 @@ class ManterUsuariosTest extends TestCase
     /** @test */
     function ao_alterar_um_usuario_podemos_deixar_a_senha_em_branco_para_manter_a_mesma_ja_cadastrada()
     {
+        $this->login(factory('App\User')->states('administrador')->create());
         //sendo que temos um usuario cadastrado
         $usuario = factory('App\User')->create();
         $dados = $usuario->toArray();

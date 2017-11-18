@@ -9,17 +9,22 @@ class UsuariosController extends Controller
 {
     public function create()
     {
+        $this->authorize('create', User::class);
+
         return view('usuarios.create');
     }
 
     public function store(Request $request)
     {
+        $this->authorize('create', User::class);
+
         $dados = $request->validate([
             'nome' => 'required',
             'email' => 'required|email|unique:usuarios',
             'password' => 'required|confirmed',
             'permissoes' => 'required|in:usuario,administrador',
         ]);
+
         User::create($dados);
 
         return redirect('/usuarios')->with('sucesso', 'Usuário cadastrado.');
@@ -28,11 +33,15 @@ class UsuariosController extends Controller
 
     public function edit(User $usuario)
     {
+        $this->authorize('update', $usuario);
+
         return view('usuarios.edit', compact('usuario'));
     }
 
     public function update(User $usuario, Request $request)
     {
+        $this->authorize('update', $usuario);
+
         $dados = $request->validate([
             'nome' => 'required',
             'email' => 'required|email|unique:usuarios,email,' . $usuario->id,
@@ -40,7 +49,7 @@ class UsuariosController extends Controller
             'permissoes' => 'required|in:usuario,administrador',
         ]);
 
-        if (!$dados['password']){
+        if (isset($dados['password']) && is_null($dados['password'])){
             unset($dados['password']);
         }
 

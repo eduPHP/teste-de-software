@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         factory('App\User')->create([
             'nome' => 'Admin',
             'email' => 'admin@sistema.com',
-            'password' => bcrypt('secret'),
+            'password' => 'secret',
             'permissoes' => 'administrador',
         ]);
     }

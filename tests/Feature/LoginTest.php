@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use Illuminate\Auth\Notifications\ResetPassword;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,7 +15,7 @@ class LoginTest extends TestCase
     /** @test */
     function um_usuario_pode_fazer_login()
     {
-        $usuario = factory('App\User')->create([
+        $usuario = factory(User::class)->create([
             'email' => 'admin@sistema.com',
         ]);
 
@@ -47,8 +47,8 @@ class LoginTest extends TestCase
     /** @test */
     function um_usuario_pode_solicitar_um_email_de_recuperacao_de_senha()
     {
-        $usuario = factory('App\User')->create([
-            'password' => bcrypt(str_random()),
+        $usuario = factory(User::class)->create([
+            'password' => str_random(),
         ]);
 
         Notification::fake();
@@ -63,7 +63,5 @@ class LoginTest extends TestCase
         Notification::assertSentTo(
             [$usuario], ResetPassword::class
         );
-
-
     }
 }

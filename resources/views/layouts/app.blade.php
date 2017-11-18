@@ -52,12 +52,21 @@
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
-                    <li>
-                        <form action="{{ url("/logout")}}" method="POST" class="logout-form hidden">
-                            {!! csrf_field() !!}
-                        </form>
-                        <a href="/" class="logout">Sair <i class="fa fa-exit"></i> </a>
-                    </li>
+                    @guest
+                        <li>
+                            <a href="/login">Login </a>
+                        </li>
+                    @else
+                        <li>
+                            <a>Logado como: {{ auth()->user()->nome }}</a>
+                        </li>
+                        <li>
+                            <form action="{{ url("/logout")}}" method="POST" class="logout-form hidden">
+                                {!! csrf_field() !!}
+                            </form>
+                            <a href="/" class="logout">Sair <i class="fa fa-exit"></i> </a>
+                        </li>
+                    @endguest
                 </ul>
             </div>
         </div>
