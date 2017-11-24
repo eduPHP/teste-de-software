@@ -27,6 +27,15 @@ class UserPolicy
         return $logado->id === $alvo->id;
     }
 
+    public function delete(User $logado, User $alvo)
+    {
+        if ($logado->isAdmin()) {
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * @param \App\User $logado
      * @param \App\User $alvo

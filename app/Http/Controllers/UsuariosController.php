@@ -67,6 +67,8 @@ class UsuariosController extends Controller
 
     public function destroy(User $usuario)
     {
+        $this->authorize('delete', $usuario);
+
         $usuario->delete();
 
         return redirect('/usuarios')->with('sucesso', 'Usuário removido');

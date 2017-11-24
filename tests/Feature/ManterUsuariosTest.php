@@ -22,7 +22,7 @@ class ManterUsuariosTest extends TestCase
             'nome' => 'John Doe',
             'email' => 'john@example.com',
             'permissoes' => 'usuario',
-            'password' => 'secret', // para não mudar o padrao do framework...
+            'password' => 'secret',
             'password_confirmation' => 'secret',
         ]);
 
@@ -60,6 +60,8 @@ class ManterUsuariosTest extends TestCase
     /** @test */
     function remocao_de_usuarios()
     {
+        $this->login(factory('App\User')->states('administrador')->create());
+
         //sendo que temos um usuario
         $usuario = factory('App\User')->create();
 
@@ -70,6 +72,22 @@ class ManterUsuariosTest extends TestCase
         $resposta->assertStatus(302);
         $resposta->assertRedirect('/usuarios')->assertSessionHas('sucesso');
         $this->assertDatabaseMissing('usuarios', ['id' => $usuario->id]);
+    }
+
+
+    /** @test */
+    function usuarios_nao_autorizados_nao_podem_excluir_usuarios()
+    {
+        $this->login(factory('App\User')->create());
+
+        //sendo que temos um usuario
+        $usuario = factory('App\User')->create();
+
+        //quando enviamos delete na url
+        $resposta = $this->delete("/usuarios/{$usuario->id}");
+
+        //então deve estar ausente do banco
+        $resposta->assertStatus(403);
     }
 
     /** @test */
