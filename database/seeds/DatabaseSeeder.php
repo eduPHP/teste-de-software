@@ -11,11 +11,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
         factory('App\User')->create([
-            'nome' => 'Admin',
+            'nome' => 'Administrador',
             'email' => 'admin@sistema.com',
             'password' => 'secret',
             'permissoes' => 'administrador',
         ]);
+
+        factory('App\User')->create([
+            'nome' => 'Usuário Normal',
+            'email' => 'user@sistema.com',
+            'password' => 'secret',
+            'permissoes' => 'usuario',
+        ]);
+
     }
 }

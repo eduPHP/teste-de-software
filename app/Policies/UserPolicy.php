@@ -11,12 +11,12 @@ class UserPolicy
 
     public function create(User $user)
     {
-        return $user->permissoes == 'administrador';
+        return $user->isAdmin();
     }
 
     public function update(User $logado, User $alvo)
     {
-        if ($logado->permissoes == 'administrador'){
+        if ($logado->isAdmin()){
             return true;
         }
 
@@ -35,6 +35,6 @@ class UserPolicy
      */
     protected function isEspertinho(User $logado, User $alvo)
     {
-        return $logado->permissoes == 'usuario' && request('permissoes') == 'administrador' && $logado->id == $alvo->id;
+        return !$logado->isAdmin() && request('permissoes') == 'administrador' && $logado->id == $alvo->id;
     }
 }
